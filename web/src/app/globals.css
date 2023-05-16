@@ -3,5 +3,7 @@
 @tailwind utilities;
 
 body {
-  @apply h-screen bg-zinc-950;
+  @apply h-screen bg-gray-900 text-gray-100;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility
 }
