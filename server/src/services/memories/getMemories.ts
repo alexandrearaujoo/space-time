@@ -1,7 +1,8 @@
 import prismaClient from '../../../prisma/prismaClient'
 
-const getMemories = async () => {
+const getMemories = async (id: string) => {
   const memories = await prismaClient.memory.findMany({
+    where: { userId: id },
     orderBy: { createdAt: 'asc' },
   })
 
