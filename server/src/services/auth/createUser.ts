@@ -1,7 +1,7 @@
 import axios from 'axios'
 import { userSchema } from '../../schemas/userSchema'
 import prismaClient from '../../../prisma/prismaClient'
-import { app } from '../../server'
+import { app } from '../../app'
 
 export const createUser = async (code: string) => {
   const { data } = await axios.post(
