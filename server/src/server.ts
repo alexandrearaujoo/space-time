@@ -11,11 +11,11 @@ app.register(cors, {
 })
 
 app.register(jwt, {
-  secret: 'secret',
+  secret: process.env.JWT_SECRET as string,
 })
 
-app.register(memoriesRoutes)
 app.register(authRoutes)
+app.register(memoriesRoutes)
 
 app
   .listen({
