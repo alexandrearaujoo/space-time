@@ -32,20 +32,22 @@ export const createUser = async (code: string) => {
 
   const userInfo = userSchema.parse(userResponse)
 
-  const userExists = await prismaClient.user.findUnique({
-    where: { githubId: userInfo.id },
-  })
-
-  if (userExists) throw new Error('User already exists!')
-
-  const user = await prismaClient.user.create({
-    data: {
+  let user = await prismaClient.user.findUnique({
+    where: {
       githubId: userInfo.id,
-      name: userInfo.name,
-      avatarUrl: userInfo.avatar_url,
-      login: userInfo.login,
     },
   })
+
+  if (!user) {
+    user = await prismaClient.user.create({
+      data: {
+        githubId: userInfo.id,
+        login: userInfo.login,
+        name: userInfo.name,
+        avatarUrl: userInfo.avatar_url,
+      },
+    })
+  }
 
   const token = app.jwt.sign(
     { name: user.name, avatarUrl: user.avatarUrl },
