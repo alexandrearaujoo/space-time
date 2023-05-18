@@ -45,9 +45,6 @@ const Form = () => {
         placeholder="Feel free to add photos, videos, and stories about that experience you want to remember forever."
         className="w-full flex-1 resize-none rounded border-0 bg-transparent p-0 text-lg leading-relaxed text-gray-100 placeholder:text-gray-400 focus:ring-0"
       />
-      <button type="submit" className="text-white">
-        teste
-      </button>
     </form>
   )
 }

@@ -6,7 +6,7 @@ const EmptyMemories = () => {
       <p className="w-[360px] text-center leading-relaxed">
         You haven&apos;t registered any memories yet, starting{' '}
         <Link
-          href=""
+          href="/memories/new"
           className="underline transition-colors duration-200 hover:text-gray-50"
         >
           creating now
