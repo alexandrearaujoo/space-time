@@ -7,7 +7,7 @@ import EmptyMemories from '@/components/EmptyMemories'
 import Profile from '@/components/Profile'
 
 export default function Home() {
-  const isAuthenticated = cookies().has('token')
+  const isAuthenticated = cookies().has('tokenTimeline')
 
   return (
     <main className="grid min-h-screen grid-cols-2">
