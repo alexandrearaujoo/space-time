@@ -7,8 +7,15 @@ import dynamic from 'next/dynamic'
 const Image = dynamic(() => import('next/image'), { ssr: false })
 
 const Form = () => {
-  const { register, handleSubmit, setCustomValue, onSubmit, coverUrl } =
-    useCreateMemory()
+  const {
+    register,
+    handleSubmit,
+    setCustomValue,
+    onSubmit,
+    coverUrl,
+    isSubmitting,
+    errors,
+  } = useCreateMemory()
 
   const regexMP4 = /\.(mp4)$/
 
@@ -56,12 +63,16 @@ const Form = () => {
         {...register('content')}
         name="content"
         spellCheck="false"
-        placeholder="Feel free to add photos, videos, and stories about that experience you want to remember forever."
+        placeholder={
+          errors.content?.message ??
+          'Feel free to add photos, videos, and stories about that experience you want to remember forever.'
+        }
         className="w-full flex-1 resize-none rounded border-0 bg-transparent p-0 text-lg leading-relaxed text-gray-100 placeholder:text-gray-400 focus:ring-0"
       />
       <button
         type="submit"
-        className="inline-block self-end rounded-full bg-green-500 px-5 py-3 font-alt text-sm uppercase leading-none text-black transition-colors duration-200 hover:bg-green-600"
+        disabled={isSubmitting}
+        className="inline-block self-end rounded-full bg-green-500 px-5 py-3 font-alt text-sm uppercase leading-none text-black transition-colors duration-200 hover:bg-green-600 disabled:cursor-not-allowed disabled:bg-green-950"
       >
         Save
       </button>

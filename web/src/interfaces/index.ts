@@ -29,3 +29,12 @@ export interface ResultMediaUpload {
   event: string
   info: InfoProps
 }
+
+export interface Memory {
+  id: string
+  content: string
+  coverUrl: string
+  excerpt: string
+  createdAt: string
+  isPublic: boolean
+}

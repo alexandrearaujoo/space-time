@@ -33,15 +33,15 @@ export default function RootLayout({ children }: { children: ReactNode }) {
       <body className={`${roboto.variable} ${baiJamjuree.variable} font-sans`}>
         <NextTopLoader color="#5c3ea3" />
         <Toaster position="bottom-right" />
-        <main className="grid min-h-screen grid-cols-2">
-          <section className="relative flex flex-col items-start justify-between overflow-hidden border-r border-white/10 bg-[url(../assets/stars.svg)] bg-cover px-28 py-16">
+        <main className="grid min-h-screen grid-cols-1 md:grid-cols-2">
+          <section className="relative flex flex-col items-start justify-between gap-5 overflow-hidden border-r border-white/10 bg-[url(../assets/stars.svg)] bg-cover px-12 py-8 md:gap-0 md:px-28 md:py-16">
             <div className="absolute right-0 top-1/2 h-[288px] w-[526px] -translate-y-1/2 translate-x-1/2 rounded-full bg-purple-700 opacity-50 blur-full" />
             <div className="absolute bottom-0 right-2 top-0 w-2 bg-stripes" />
             {isAuthenticated ? <Profile /> : <SignIn />}
             <Hero />
             <Copyright />
           </section>
-          <section className="b flex flex-col bg-[url(../assets/stars.svg)] bg-cover p-16">
+          <section className="flex max-h-screen flex-col bg-[url(../assets/stars.svg)] bg-cover md:overflow-y-auto">
             {children}
           </section>
         </main>
