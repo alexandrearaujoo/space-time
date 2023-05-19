@@ -2,8 +2,14 @@ import { MemoryRequest, memorySchema } from '@/schemas/memorySchema'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { toast } from 'react-hot-toast'
+import { api } from '@/lib/api'
+import Cookie from 'js-cookie'
+import { useRouter } from 'next/navigation'
 
 export const useCreateMemory = () => {
+  const token = Cookie.get('tokenTimeline')
+  const router = useRouter()
+
   const {
     register,
     handleSubmit,
@@ -24,9 +30,19 @@ export const useCreateMemory = () => {
   }
 
   const onSubmit = async (data: MemoryRequest) => {
-    console.log(data)
+    const res = await api.post('/memories', data, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
+
+    if (res.status !== 201) {
+      toast.error('Something went wrong')
+      return
+    }
     reset()
     toast.success('Memory created successfully')
+    router.push('/')
   }
 
   return {

@@ -2,7 +2,9 @@
 
 import { useCreateMemory } from '@/hooks/useCreateMemory'
 import ImageUpload from './ImageUpload'
-import Image from 'next/image'
+import dynamic from 'next/dynamic'
+
+const Image = dynamic(() => import('next/image'), { ssr: false })
 
 const Form = () => {
   const { register, handleSubmit, setCustomValue, onSubmit, coverUrl } =
@@ -35,7 +37,7 @@ const Form = () => {
           width={300}
           height={300}
           alt="Cover URL"
-          className="h-80 w-full object-cover"
+          className="aspect-video w-full rounded-lg object-cover"
         />
       )}
       <textarea
@@ -45,6 +47,12 @@ const Form = () => {
         placeholder="Feel free to add photos, videos, and stories about that experience you want to remember forever."
         className="w-full flex-1 resize-none rounded border-0 bg-transparent p-0 text-lg leading-relaxed text-gray-100 placeholder:text-gray-400 focus:ring-0"
       />
+      <button
+        type="submit"
+        className="inline-block self-end rounded-full bg-green-500 px-5 py-3 font-alt text-sm uppercase leading-none text-black transition-colors duration-200 hover:bg-green-600"
+      >
+        Save
+      </button>
     </form>
   )
 }
