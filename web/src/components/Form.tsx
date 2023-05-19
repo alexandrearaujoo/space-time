@@ -1,7 +1,7 @@
 'use client'
 
 import { useCreateMemory } from '@/hooks/useCreateMemory'
-import ImageUpload from './ImageUpload'
+import MediaUpload from './MediaUpload'
 import dynamic from 'next/dynamic'
 
 const Image = dynamic(() => import('next/image'), { ssr: false })
@@ -10,13 +10,17 @@ const Form = () => {
   const { register, handleSubmit, setCustomValue, onSubmit, coverUrl } =
     useCreateMemory()
 
+  const regexMP4 = /\.(mp4)$/
+
+  const isVideo = regexMP4.test(coverUrl)
+
   return (
     <form
       className="flex flex-1 flex-col gap-2"
       onSubmit={handleSubmit(onSubmit)}
     >
       <div className="flex items-center gap-4">
-        <ImageUpload onChange={(value) => setCustomValue('coverUrl', value)} />
+        <MediaUpload onChange={(value) => setCustomValue('coverUrl', value)} />
         <label
           htmlFor="isPublic"
           className="flex items-center gap-1.5 text-sm text-gray-200 transition-colors duration-200 hover:text-gray-100"
@@ -31,7 +35,15 @@ const Form = () => {
           Make public memory
         </label>
       </div>
-      {coverUrl && (
+      {isVideo && coverUrl && (
+        <video
+          src={coverUrl}
+          controls
+          muted
+          className="aspect-video w-full rounded-lg object-cover"
+        />
+      )}
+      {!isVideo && coverUrl && (
         <Image
           src={coverUrl}
           width={300}

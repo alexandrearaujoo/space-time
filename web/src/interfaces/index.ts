@@ -25,7 +25,7 @@ interface InfoProps {
   width: number
 }
 
-export interface ResultImageUpload {
+export interface ResultMediaUpload {
   event: string
   info: InfoProps
 }

@@ -1,15 +1,15 @@
-import { ResultImageUpload } from '@/interfaces'
+import { ResultMediaUpload } from '@/interfaces'
 import { Camera } from 'lucide-react'
 import { CldUploadWidget } from 'next-cloudinary'
 import { useCallback } from 'react'
 
-interface ImageUploadProps {
+interface MediaUploadProps {
   onChange: (value: string) => void
 }
 
-const ImageUpload = ({ onChange }: ImageUploadProps) => {
+const MediaUpload = ({ onChange }: MediaUploadProps) => {
   const handleUpload = useCallback(
-    (result: ResultImageUpload) => {
+    (result: ResultMediaUpload) => {
       onChange(result.info.secure_url)
     },
     [onChange],
@@ -38,4 +38,4 @@ const ImageUpload = ({ onChange }: ImageUploadProps) => {
   )
 }
 
-export default ImageUpload
+export default MediaUpload
