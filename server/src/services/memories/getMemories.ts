@@ -13,6 +13,7 @@ const getMemories = async (id: string) => {
     id: memory.id,
     coverUrl: memory.coverUrl,
     excerpt: memory.content.substring(0, 115).concat('...'),
+    isPublic: memory.isPublic,
   }))
 }
 
