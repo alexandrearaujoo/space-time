@@ -1,7 +1,11 @@
 import { FastifyInstance } from 'fastify'
 import MemoryController from '../controller/memories'
+import errorHandler from '../middleware/errorHandler'
 
 export async function memoriesRoutes(app: FastifyInstance) {
+  app.addHook('onError', async (req, reply, error) => {
+    errorHandler(error, req, reply)
+  })
   app.addHook('preHandler', async (req) => {
     await req.jwtVerify()
   })

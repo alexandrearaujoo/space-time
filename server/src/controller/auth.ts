@@ -3,7 +3,7 @@ import { z } from 'zod'
 import { createUser } from '../services/auth/createUser'
 
 class AuthController {
-  async create(req: FastifyRequest, res: FastifyReply) {
+  async create(req: FastifyRequest, reply: FastifyReply) {
     const bodySchema = z.object({
       code: z.string(),
     })
@@ -11,7 +11,7 @@ class AuthController {
 
     const user = await createUser(code)
 
-    res.status(201).send(user)
+    reply.status(201).send(user)
   }
 }
 

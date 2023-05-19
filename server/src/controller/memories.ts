@@ -7,7 +7,7 @@ import getMemories from '../services/memories/getMemories'
 import { updateMemory } from '../services/memories/updateMemory'
 
 class MemoryController {
-  async create(req: FastifyRequest, res: FastifyReply) {
+  async create(req: FastifyRequest, reply: FastifyReply) {
     const { sub: userId } = req.user
     const { coverUrl, content, isPublic } = createMemorySchema.parse(req.body)
 
@@ -18,18 +18,18 @@ class MemoryController {
       userId,
     })
 
-    return res.status(201).send(newMemory)
+    return reply.status(201).send(newMemory)
   }
 
-  async show(req: FastifyRequest, res: FastifyReply) {
+  async show(req: FastifyRequest, reply: FastifyReply) {
     const { sub } = req.user
 
     const memories = await getMemories(sub)
 
-    return res.send(memories)
+    return reply.send(memories)
   }
 
-  async index(req: FastifyRequest, res: FastifyReply) {
+  async index(req: FastifyRequest, reply: FastifyReply) {
     const { sub } = req.user
     const params = z.object({
       id: z.string().uuid('Invalid UUID'),
@@ -39,10 +39,10 @@ class MemoryController {
 
     const memory = await getMemoryById(id, sub)
 
-    return res.send(memory)
+    return reply.send(memory)
   }
 
-  async update(req: FastifyRequest, res: FastifyReply) {
+  async update(req: FastifyRequest, reply: FastifyReply) {
     const { sub } = req.user
     const params = z.object({
       id: z.string().uuid('Invalid UUID'),
@@ -61,10 +61,10 @@ class MemoryController {
       isPublic,
     })
 
-    return res.send(memoryUpdated)
+    return reply.send(memoryUpdated)
   }
 
-  async delete(req: FastifyRequest, res: FastifyReply) {}
+  async delete(req: FastifyRequest, reply: FastifyReply) {}
 }
 
 export default new MemoryController()
