@@ -1,11 +1,8 @@
-import Image from 'next/image'
 import Link from 'next/link'
-import logo from '../assets/logo.svg'
 
 const Hero = () => {
   return (
     <div className="space-y-5">
-      <Image src={logo} alt="Logo" />
       <div className="max-w-[420px] space-y-1">
         <h1 className="text-5xl font-bold leading-tight text-gray-50">
           Your timeline

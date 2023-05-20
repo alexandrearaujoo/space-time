@@ -8,7 +8,7 @@ const ShareButton = ({ memoryId }: { memoryId: string }) => {
   const shareData = {
     title: 'My Memory',
     text: 'Check out my memory',
-    url: isBrowser() ? `${window.location.href}/memories/${memoryId}` : '',
+    url: isBrowser() ? `${window.location.href}memories/${memoryId}` : '',
   }
 
   const handleClick = async () => {

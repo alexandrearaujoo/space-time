@@ -10,7 +10,7 @@ export default function Error({ error }: { error: Error }) {
 
   return (
     <section className="flex h-screen flex-col items-center justify-center gap-10 p-16">
-      <h1>Something went wrong or the memory was not found</h1>
+      <h1>This memory is private or the memory was not found</h1>
       <Link
         href="/"
         className="underline transition-colors duration-200 hover:text-gray-50"

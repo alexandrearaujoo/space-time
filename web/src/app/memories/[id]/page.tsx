@@ -3,7 +3,6 @@ import { api } from '@/lib/api'
 import dayjs from 'dayjs'
 import ptBr from 'dayjs/locale/pt-br'
 
-import { cookies } from 'next/headers'
 import Image from 'next/image'
 import Link from 'next/link'
 
@@ -16,11 +15,7 @@ export default async function MemoryPage({
 }) {
   const { id } = params
 
-  const token = cookies().get('tokenTimeline')?.value
-
-  const { data: memory } = await api.get<Memory>(`/memories/${id}`, {
-    headers: { Authorization: `Bearer ${token}` },
-  })
+  const { data: memory } = await api.get<Memory>(`/memories/${id}`)
 
   const isVideo = /\.(mp4)$/
 
