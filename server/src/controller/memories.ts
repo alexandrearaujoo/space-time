@@ -2,12 +2,13 @@ import { FastifyReply, FastifyRequest } from 'fastify'
 import createMemory from '../services/memories/createMemory'
 import { createMemorySchema } from '../schemas/createMemory'
 import { z } from 'zod'
-import getMemoryById from '../services/memories/getMemoryById'
+import { getMemoryById } from '../services/memories/getMemoryById'
 import getMemories from '../services/memories/getMemories'
 import { updateMemory } from '../services/memories/updateMemory'
 
 class MemoryController {
   async create(req: FastifyRequest, reply: FastifyReply) {
+    await req.jwtVerify()
     const { sub: userId } = req.user
     const { coverUrl, content, isPublic } = createMemorySchema.parse(req.body)
 
@@ -22,6 +23,7 @@ class MemoryController {
   }
 
   async show(req: FastifyRequest, reply: FastifyReply) {
+    await req.jwtVerify()
     const { sub } = req.user
 
     const memories = await getMemories(sub)
@@ -30,19 +32,19 @@ class MemoryController {
   }
 
   async index(req: FastifyRequest, reply: FastifyReply) {
-    const { sub } = req.user
     const params = z.object({
       id: z.string().uuid('Invalid UUID'),
     })
 
     const { id } = params.parse(req.params)
 
-    const memory = await getMemoryById(id, sub)
+    const memory = await getMemoryById(id)
 
     return reply.send(memory)
   }
 
   async update(req: FastifyRequest, reply: FastifyReply) {
+    await req.jwtVerify()
     const { sub } = req.user
     const params = z.object({
       id: z.string().uuid('Invalid UUID'),

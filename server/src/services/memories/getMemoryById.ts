@@ -1,13 +1,12 @@
 import prismaClient from '../../../prisma/prismaClient'
 import AppError from '../../error/appError'
 
-const getMemoryById = async (id: string, userId: string) => {
-  const memory = await prismaClient.memory.findUniqueOrThrow({ where: { id } })
+export const getMemoryById = async (id: string) => {
+  const memory = await prismaClient.memory.findUnique({ where: { id } })
 
-  if (!memory.isPublic && memory.userId !== userId)
-    throw new AppError(401, 'Unathourized')
+  if (!memory) throw new AppError(404, 'Memory not found')
+
+  if (!memory.isPublic) throw new AppError(401, 'Memory is private')
 
   return memory
 }
-
-export default getMemoryById
